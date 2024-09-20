@@ -6,7 +6,7 @@ const path = require("path");
 const config = require("./config.json");
 const mongoose = require("mongoose");
 
-mongoose.connect(config.connectionString);
+mongoose.connect(process.env.MONGO_URI);
 
 
 const ProductRoutes = require("./routes/product.route");

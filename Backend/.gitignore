@@ -33,6 +33,7 @@ lib-cov
 
 coverage
 *.lcov
+.env
 config.json
 
 # nyc test coverage
