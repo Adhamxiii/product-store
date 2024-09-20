@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://product-store-xi.vercel.app/",
+        target: "https://product-store-xi.vercel.app",
       },
     },
   },
