@@ -2,21 +2,16 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const path = require("path");
-
-const config = require("./config.json");
 const mongoose = require("mongoose");
-
-mongoose.connect(process.env.MONGO_URI);
-
+const express = require("express");
+const cors = require("cors");
 
 const ProductRoutes = require("./routes/product.route");
 
+mongoose.connect(process.env.MONGO_URI);
 
-const express = require("express");
-const cors = require("cors");
 const app = express();
-const port = 8000;
-
+const port = process.env.PORT || 8000;
 const _dirname = path.resolve();
 
 app.use(express.json());
@@ -25,6 +20,10 @@ app.use(
     origin: "*",
   })
 );
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
 app.use("/api/products", ProductRoutes);
 
@@ -36,4 +35,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(port, () => console.log(`Server start at http://localhost:${port}`));
+app.listen(port, "0.0.0.0", () =>
+  console.log(`Server started on port ${port}`)
+);
